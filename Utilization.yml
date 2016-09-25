@@ -1,0 +1,13 @@
+---
+ - name: utilization!
+   hosts: storagenode-2
+
+   tasks:
+
+     - name: average memory
+       command: sar -r -q -n DEV
+       register: memory
+     - debug: msg=" average memory utilization is {{memory.stdout}}"  
+     - local_action: copy  content="{{ memory.stdout }}" dest="/root/results/storagenode-2.csv"
+
+
